@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,9 +44,9 @@ public class TopicoController {
 	
 	@GetMapping("/topicos")
 	public Page<TopicoDto> listaTopicos(@RequestParam(name = "curso", required = false) String nomeCurso,
-			@RequestParam(name = "pagina") int pagina, 
-			@RequestParam(name = "qtd") int qtdPagina,
-			@RequestParam(name = "ordenar", required = false) String ordenacao) {
+			@RequestParam(name = "page") int pagina, 
+			@RequestParam(name = "size") int qtdPagina,
+			@RequestParam(name = "sort", required = false) String ordenacao) {
 		
 		Pageable paginacao = PageRequest.of(pagina, qtdPagina, Direction.ASC, ordenacao);
 		
@@ -57,6 +58,20 @@ public class TopicoController {
 			return TopicoDto.converter(topicos);
 		}
 	}
+	
+	@GetMapping("/topicos/paginacao")
+	public Page<TopicoDto> listaTopicos(@RequestParam(name = "curso", required = false) String nomeCurso, 
+			@PageableDefault(page = 0, size = 15, sort = "id", direction = Direction.ASC) Pageable paginacao) {
+				
+		if(nomeCurso == null) {
+			Page<Topico> topicos = topicoRepository.findAll(paginacao);
+			return TopicoDto.converter(topicos);
+		}else {
+			Page<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso, paginacao);							
+			return TopicoDto.converter(topicos);
+		}
+	}
+	
 	
 	@PostMapping("/topicos")
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoFormDto form, UriComponentsBuilder uriBuilder) {
