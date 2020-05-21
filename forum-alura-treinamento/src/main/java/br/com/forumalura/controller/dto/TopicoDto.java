@@ -51,6 +51,10 @@ public class TopicoDto {
 				.map(TopicoDto::new)
 				.collect(Collectors.toList());		
 	}
+
+	public static TopicoDto converterToTopico(Topico topico) {
+		return new TopicoDto(topico);
+	}
 	
 	
 }

@@ -46,7 +46,5 @@ public class Curso {
 		this.categoria = categoria;
 	}
 	
-	public Curso() {
-		
-	}
+	public Curso() {}
 }
