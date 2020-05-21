@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,12 +45,13 @@ public class TopicoController {
 	private CursoRepository cursoRepository;
 	
 	@GetMapping("/topicos")
+	@Cacheable(value = "ListaDeTopicos") // Habilita o cacheamento para o metodo
 	public Page<TopicoDto> listaTopicos(@RequestParam(name = "curso", required = false) String nomeCurso,
 			@RequestParam(name = "page") int pagina, 
 			@RequestParam(name = "size") int qtdPagina,
 			@RequestParam(name = "sort", required = false) String ordenacao) {
 		
-		Pageable paginacao = PageRequest.of(pagina, qtdPagina, Direction.ASC, ordenacao);
+		Pageable paginacao = PageRequest.of(pagina == 0 ? pagina : 0, qtdPagina == 0 ? qtdPagina : 15, Direction.ASC, ordenacao);
 		
 		if(nomeCurso == null) {
 			Page<Topico> topicos = topicoRepository.findAll(paginacao);
@@ -74,6 +77,7 @@ public class TopicoController {
 	
 	
 	@PostMapping("/topicos")
+	@CacheEvict(value = "ListaDeTopicos", allEntries = true) // Restart o cache apos sofre alguma atualização
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoFormDto form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(form, cursoRepository);
 		topico = topicoRepository.save(topico);
@@ -92,6 +96,7 @@ public class TopicoController {
 	}
 	
 	@PutMapping("/topicos/{id}")
+	@CacheEvict(value = "ListaDeTopicos", allEntries = true) // Restart o cache apos sofre alguma atualização
 	public ResponseEntity<TopicoDto> atualizarTopico(@PathVariable("id") Long id, @RequestBody @Valid TopicoAtualizarFormDto form){
 		Optional<Topico> topico = topicoRepository.findById(id);
 		
@@ -106,6 +111,7 @@ public class TopicoController {
 	}
 	
 	@DeleteMapping("/topicos/{id}")
+	@CacheEvict(value = "ListaDeTopicos", allEntries = true) // Restart o cache apos sofre alguma atualização
 	public ResponseEntity<DetalheTopicoDto> deleteTopico(@PathVariable Long id) {
 		Optional<Topico> topico = topicoRepository.findById(id);
 		
