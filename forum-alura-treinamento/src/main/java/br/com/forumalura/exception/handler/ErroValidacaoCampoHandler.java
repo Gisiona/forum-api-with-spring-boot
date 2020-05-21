@@ -21,7 +21,7 @@ public class ErroValidacaoCampoHandler {
 	private MessageSource messageSource;
 	
 	
-	@ResponseStatus()
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public List<ErroValidacaoCampoExceptionResponse> handle(MethodArgumentNotValidException ex) {
 		List<ErroValidacaoCampoExceptionResponse> response = new ArrayList<ErroValidacaoCampoExceptionResponse>();
@@ -30,7 +30,7 @@ public class ErroValidacaoCampoHandler {
 		
 		fielErros.forEach(e -> {
 			String msgErro = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-			ErroValidacaoCampoExceptionResponse objErro = new ErroValidacaoCampoExceptionResponse(e.getField(), msgErro, HttpStatus.BAD_REQUEST.getReasonPhrase());
+			ErroValidacaoCampoExceptionResponse objErro = new ErroValidacaoCampoExceptionResponse(e.getField(), msgErro, HttpStatus.BAD_REQUEST.toString());
 			response.add(objErro);
 		});
 		

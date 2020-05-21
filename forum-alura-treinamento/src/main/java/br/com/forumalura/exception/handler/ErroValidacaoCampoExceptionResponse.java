@@ -2,11 +2,19 @@ package br.com.forumalura.exception.handler;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ErroValidacaoCampoExceptionResponse {
-	
+	@JsonProperty("campo")
 	private String campo;
+	
+	@JsonProperty("mensagem")
 	private String erro;
+	
+	@JsonProperty("status")
 	private String statusCode;
+	
+	@JsonProperty("timestamp")
 	private LocalDateTime data;
 	
 
