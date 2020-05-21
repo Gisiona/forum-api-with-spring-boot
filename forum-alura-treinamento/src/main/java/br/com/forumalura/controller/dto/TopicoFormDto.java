@@ -1,6 +1,11 @@
 package br.com.forumalura.controller.dto;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 
 import br.com.forumalura.entity.Curso;
 import br.com.forumalura.entity.Topico;
@@ -8,10 +13,15 @@ import br.com.forumalura.repository.CursoRepository;
 
 public class TopicoFormDto {
 
+	@NotNull
+	@NotEmpty(message = "O campo titulo não pode ser nulo ou vazio") 
+	@Length(min = 10, message = "Digito no minimo 5 caracteres")
 	@JsonProperty("titulo")
 	private String titulo;
+	
 	@JsonProperty("mensagem")
 	private String mensagem;
+	
 	@JsonProperty("nome_curso")
 	private String curso;
 	
