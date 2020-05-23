@@ -66,8 +66,6 @@ public class Usuario implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// perfilAcessoUsuario = new ArrayList<PerfilAcesso>();
-		//perfilAcessoUsuario.add(new PerfilAcesso(1L, "Admin"));
 		return this.perfilAcessoUsuario;
 	}
 
