@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/forum/topicos").permitAll()
 		.antMatchers(HttpMethod.GET, "/forum/topicos/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/forum/auth").permitAll()
+		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 		
 		// qualquer outra requisição precisa esta autenticado
 		.anyRequest().authenticated()
