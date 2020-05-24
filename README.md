@@ -11,13 +11,24 @@
     <img alt="Tela inicial do spring boot admin com o monitoramento de api rest" src="https://i.pinimg.com/originals/7f/4c/91/7f4c91981e2075396417a0023c0b4cc1.png" />
 </h1>
 
+# Neste treinamento posso destacar alguns aprendizados adqueridos que considero muito importantes para os tipos de aplicações atuais.
+    - Design de Api
+    - Arquitetura de Api Rest
+    - Monitoramento
+    - Logs
+    - Documentação
+    - Segurança com autenticação via JWT Token
+    - Cache 
+    - Entre outros.
+
+
 # Libs utilizadas para criação da API
 
-# Spring Boot Admin
+- Spring Boot Admin
 https://codecentric.github.io/spring-boot-admin/2.2.3/
 
-# springfox
+- springfox
 http://springfox.github.io/springfox/
 
-# swagger
+- swagger
 https://swagger.io/
