@@ -23,12 +23,14 @@
 
 
 # Libs utilizadas para criação da API
+- Spring Boot 
+https://spring.io/projects/spring-boot
 
-- Spring Boot Admin
+- Spring Boot Admin 
 https://codecentric.github.io/spring-boot-admin/2.2.3/
 
-- springfox
+- Springfox 
 http://springfox.github.io/springfox/
 
-- swagger
+- Swagger 
 https://swagger.io/
